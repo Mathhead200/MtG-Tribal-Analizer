@@ -75,6 +75,14 @@ public class Tribes {
 		}
 	}
 
+	private static String tryGathererHtml(String creatureSubtypes, String colorIdentity) {
+		try {
+			return gathererHtml(creatureSubtypes, colorIdentity);
+		} catch(IOException ex) {
+			return null;
+		}
+	}
+
 	private static int scrapeCount(String gathererHtml) {
 		final String target = "id=\"ctl00_ctl00_ctl00_MainContent_SubContent_SubContentHeader_searchTermDisplay\"";
 		int i = gathererHtml.indexOf(target) + target.length();
@@ -82,6 +90,14 @@ public class Tribes {
 		i = gathererHtml.lastIndexOf("(", i) + 1;
 		int j = gathererHtml.indexOf(")", i);
 		return Integer.parseInt(gathererHtml.substring(i, j));
+	}
+
+	private static int safeScrapeCount(String gathererHtml) {
+		if (gathererHtml != null)
+			try {
+				return scrapeCount(gathererHtml);
+			} catch(NumberFormatException ex) {}
+		return -1;
 	}
 
 	public static void printColorTable(List<String> types) throws IOException {
@@ -112,7 +128,7 @@ public class Tribes {
 			System.out.print(table[i][0] = type);
 			for (int j = 0; j < cIds.length; j++) {
 				String cId = cIds[j];
-				int count = scrapeCount(gathererHtml(type, cId));
+				int count = safeScrapeCount(tryGathererHtml(type, cId));
 				System.out.print(",\t" + (table[i][2 + j] = "" + count));
 				total += count;
 			}
@@ -158,7 +174,7 @@ public class Tribes {
 				if (i <= j) {
 					// look up
 					String type = types.get(i) + " " + types.get(j);
-					System.out.print(table[i][j] = scrapeCount(gathererHtml(type, null)));
+					System.out.print(table[i][j] = safeScrapeCount(tryGathererHtml(type, null)));
 				} else {
 					// transpose
 					System.out.print(table[i][j] = table[j][i]);
