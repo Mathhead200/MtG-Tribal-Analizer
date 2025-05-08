@@ -1,0 +1,10 @@
+{
+	"human": {
+		"colorless": 5,
+		"white": 1124,  // https://gatherer.wizards.com/Pages/Search/Default.aspx?action=advanced&type=+[%22Creature%22]&subtype=+[%22Human%22]&color=+[W]+![U]+![B]+![R]+![G]
+		"blue": 560,    // https://gatherer.wizards.com/Pages/Search/Default.aspx?action=advanced&type=+[%22Creature%22]&subtype=+[%22Human%22]&color=+![W]+[U]+![B]+![R]+![G]
+		"black": 480,
+		"red": 553,
+		"green": 393
+	}
+}
