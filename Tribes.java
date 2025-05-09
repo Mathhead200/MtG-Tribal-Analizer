@@ -20,7 +20,7 @@ public class Tribes {
 		if (creatureSubtypes != null) {
 			url.append("&subtype=");
 			for (String subtype : creatureSubtypes.split("\\s+"))
-				url.append("+[%22").append(subtype).append("%22]");
+				url.append("+[m/\\b").append(subtype).append("\\b/]");
 		}
 
 		// add color identity
@@ -138,7 +138,7 @@ public class Tribes {
 		// sort table. output again.
 		System.out.println("\nSorted:");
 		Arrays.sort(table, (rowA, rowB) -> {
-			return Integer.parseInt(rowA[1]) - Integer.parseInt(rowB[1]);
+			return Integer.parseInt(rowB[1]) - Integer.parseInt(rowA[1]);
 		});
 
 		// headers:
@@ -191,7 +191,7 @@ public class Tribes {
 
     public static void main(String[] args) throws IOException {
         List<String> types;
-		try (InputStream in = new FileInputStream("creature-types.txt")) {
+		try (InputStream in = new FileInputStream("creature-types-filtered-more.txt")) {
 			types = readAllLines(in);
 		}
 

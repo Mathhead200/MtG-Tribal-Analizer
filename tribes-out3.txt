@@ -1,0 +1,4 @@
+--- TYPE COLOR TABLE: ---
+Name,	,	W,	U,	B,	R,	G,	WU,	UB,	BR,	RG,	GW,	WB,	UR,	BG,	RW,	GU,	WUB,	UBR,	BRG,	RGW,	GWU,	WBG,	URW,	BGU,	RWB,	GUR,	WUBR,	UBRG,	BRGW,	RGWU,	GWUB,	WUBRG,	Total
+Adventure,	0,	23,	28,	19,	22,	29,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	121
+Advisor,	0,	33,	30,	8,	6,	10,	9,	4,	0,	2,	2,	13,	0,	0,	2,	3,	0
