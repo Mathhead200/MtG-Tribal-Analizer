@@ -1,0 +1,3 @@
+Human,	3688
+Spirit,	250
+Zombie,	

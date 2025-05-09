@@ -41,6 +41,19 @@ public class Tribes {
 		}
 	}
 
+	private static URL multiclassGathererURL(String creatureSubtype) {
+		StringBuilder url = new StringBuilder(
+			"https://gatherer.wizards.com/Pages/Search/Default.aspx?action=advanced&type=+[%22Creature%22]");
+		url.append("&subtype=+[m/\\b").append(creatureSubtype).append("\\b/]");
+		url.append("+[m/^(?!").append(creatureSubtype).append("$).+/]");
+
+		try {
+			return new URL(url.toString());
+		} catch(MalformedURLException ex) {
+			throw new Error(ex);
+		}
+	}
+
 	private static String readAll(InputStream input) throws IOException {
 		StringBuilder str = new StringBuilder();
 		BufferedReader in = new BufferedReader(new InputStreamReader(input));
@@ -59,10 +72,10 @@ public class Tribes {
 		return lines;
 	}
 
-	private static String gathererHtml(String creatureSubtypes, String colorIdentity) throws IOException {
+	private static String html(URL gathererURL) throws IOException {
 		HttpURLConnection connection;
 		try {
-			connection = (HttpURLConnection) gathererURL(creatureSubtypes, colorIdentity).openConnection();
+			connection = (HttpURLConnection) gathererURL.openConnection();
 			connection.setRequestMethod("GET");
 		} catch(ClassCastException | ProtocolException ex) {
 			throw new Error(ex);
@@ -75,9 +88,9 @@ public class Tribes {
 		}
 	}
 
-	private static String tryGathererHtml(String creatureSubtypes, String colorIdentity) {
+	private static String tryHtml(URL gathererUrl) {
 		try {
-			return gathererHtml(creatureSubtypes, colorIdentity);
+			return html(gathererUrl);
 		} catch(IOException ex) {
 			return null;
 		}
@@ -128,7 +141,7 @@ public class Tribes {
 			System.out.print(table[i][0] = type);
 			for (int j = 0; j < cIds.length; j++) {
 				String cId = cIds[j];
-				int count = safeScrapeCount(tryGathererHtml(type, cId));
+				int count = safeScrapeCount(tryHtml(gathererURL(type, cId)));
 				System.out.print(",\t" + (table[i][2 + j] = "" + count));
 				total += count;
 			}
@@ -142,7 +155,7 @@ public class Tribes {
 		});
 
 		// headers:
-		System.out.println("Type,\tTotal");
+		System.out.print("Type,\tTotal");
 		for(String cId : cIds)
 			System.out.print(",\t" + cId);
 		System.out.println();
@@ -174,12 +187,13 @@ public class Tribes {
 				if (i <= j) {
 					// look up
 					String type = types.get(i) + " " + types.get(j);
-					System.out.print(table[i][j] = safeScrapeCount(tryGathererHtml(type, null)));
+					System.out.print(table[i][j] = safeScrapeCount(tryHtml(gathererURL(type, null))));
 				} else {
 					// transpose
 					System.out.print(table[i][j] = table[j][i]);
 				}
 			}
+			System.out.println();
 		}
 
 		// sort table. output again.
@@ -189,13 +203,23 @@ public class Tribes {
 		// TODO: reprint
 	}
 
+	public static void printMulticlass(List<String> types) throws IOException {
+		String[][] table = new String[types.size()][2];
+		for (int i = 0; i < types.size(); i++) {
+			String type = types.get(i);
+			System.out.print((table[i][0] = type) + ",\t");
+			System.out.println(table[i][1] = "" + scrapeCount(tryHtml(multiclassGathererURL(type))));
+		}
+	}
+
     public static void main(String[] args) throws IOException {
+		// load types from file
         List<String> types;
-		try (InputStream in = new FileInputStream("creature-types-filtered-more.txt")) {
+		try (InputStream in = new FileInputStream("creature-types-filtered-even-more.txt")) {
 			types = readAllLines(in);
 		}
 
-		printColorTable(types);
-		printMatrix(types);
+		// run report(s)
+		printMulticlass(types);
     }
 }
