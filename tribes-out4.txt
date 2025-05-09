@@ -1,3 +1,5 @@
 Human,	3688
 Spirit,	250
-Zombie,	
+Zombie,	405
+Elf,	571
+Beast,	

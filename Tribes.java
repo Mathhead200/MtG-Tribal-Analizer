@@ -208,7 +208,7 @@ public class Tribes {
 		for (int i = 0; i < types.size(); i++) {
 			String type = types.get(i);
 			System.out.print((table[i][0] = type) + ",\t");
-			System.out.println(table[i][1] = "" + scrapeCount(tryHtml(multiclassGathererURL(type))));
+			System.out.println(table[i][1] = "" + safeScrapeCount(tryHtml(multiclassGathererURL(type))));
 		}
 	}
 
