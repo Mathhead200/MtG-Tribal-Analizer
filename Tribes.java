@@ -215,11 +215,11 @@ public class Tribes {
     public static void main(String[] args) throws IOException {
 		// load types from file
         List<String> types;
-		try (InputStream in = new FileInputStream("creature-types-filtered-even-more.txt")) {
+		try (InputStream in = new FileInputStream("creature-types-overlap.txt")) {
 			types = readAllLines(in);
 		}
 
 		// run report(s)
-		printMulticlass(types);
+		printMatrix(types);
     }
 }

@@ -13,11 +13,9 @@ Merfolk
 Angel
 Insect
 Giant
-Construct
 Eldrazi
 Dinosaur
 Snake
-Golem
 Werewolf
 Lizard
 Dog
@@ -47,14 +45,10 @@ God
 Rhino
 Troll
 Ninja
-Griffin
-Serpent
 Boar
 Dryad
 Fish
 Horse
-Scarecrow
-Kavu
 Peasant
 Bat
 Fox
@@ -63,10 +57,7 @@ Imp
 Bear
 Octopus
 Turtle
-Phoenix
 Squirrel
-Thopter
-Leviathan
 Wizard
 Warrior
 Soldier
@@ -106,7 +97,6 @@ Nightmare
 Plant
 Mutant
 Fungus
-Ooze
 Robot
 Minion
 Lord
